@@ -1,5 +1,11 @@
+html,body {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
+  flex-grow: 1;
 }
 
 .App-logo {
