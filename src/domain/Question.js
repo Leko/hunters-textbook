@@ -1,7 +1,6 @@
 // @flow
 
 import { Record, Set } from 'immutable'
-import { Choice } from './'
 
 export default class Question extends Record({
   sentence: '',

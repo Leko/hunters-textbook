@@ -1,3 +1,6 @@
+// @flow
+
+import type { Context } from 'almin'
 import React, { PureComponent } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import {
@@ -9,33 +12,55 @@ import {
   Session,
   Question,
 } from './scenes'
-// import Card, { CardActions, CardHeader, CardContent, CardMedia } from 'material-ui/Card'
-// import List, {
-//   ListItem,
-//   ListItemAvatar,
-//   ListItemIcon,
-//   ListItemSecondaryAction,
-//   ListItemText,
-// } from 'material-ui/List'
-// import Button from 'material-ui/Button'
-// import Grid from 'material-ui/Grid'
-// import logo from './logo.svg'
 import './App.css'
+
+type Props = {
+  appContext: Context,
+}
 
 type State = {
   openSideBar: boolean
 }
 
 class App extends PureComponent<void, void, State> {
-  state: State = {
-    openSideBar: false
+  unSubscribe: Function
+
+  constructor (props: Props) {
+    super(props)
+    this.state = Object.assign(props.appContext.getState(), {
+      openSideBar: false
+    })
+  }
+
+  componentWillMount () {
+    const context = this.props.appContext
+    const handleChange = () => {
+      this.setState(context.getState())
+    }
+    this.unSubscribe = context.onChange(handleChange)
+  }
+
+  componentWillUnmount () {
+    if (typeof this.unSubscribe === "function") {
+      this.unSubscribe()
+    }
   }
 
   handleOpenSideBar = () => {
     this.setState({ openSideBar: true })
   }
+
   handleCloseSideBar = () => {
     this.setState({ openSideBar: false })
+  }
+
+  wrap = (ComponentClass) => (props) => {
+    return (
+      <ComponentClass
+        appContext={this.props.appContext}
+        {...this.state}
+      />
+    )
   }
 
   render() {
@@ -50,9 +75,21 @@ class App extends PureComponent<void, void, State> {
             onRequestClose={this.handleCloseSideBar}
           />
 
-          <Route exact path='/' component={OnBoarding} />
-          <Route path='/session/:part' component={Session} />
-          <Route path='/q/:year/:category/:animal/:field' component={Question} />
+          <div className="container">
+            <Route
+              exact
+              path='/'
+              render={this.wrap(OnBoarding)}
+            />
+            <Route
+              path='/session/:part'
+              render={this.wrap(Session)}
+            />
+            <Route
+              path='/q/:year/:category/:animal/:field'
+              render={this.wrap(Question)}
+            />
+          </div>
         </div>
       </Router>
     )

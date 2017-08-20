@@ -1,7 +1,7 @@
 // @flow
 
 import { Record, Set } from 'immutable'
-import { Sheet, SheetMeta } from './'
+import { SheetMeta } from './'
 
 export default class SpreadSheet extends Record({
   id: '',

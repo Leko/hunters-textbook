@@ -10,6 +10,6 @@ export default class Cell extends Record({
   }
 
   getValue () : string {
-    this.value
+    return this.value
   }
 }
