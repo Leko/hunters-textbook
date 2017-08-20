@@ -12,10 +12,4 @@ export default class SpreadSheet extends Record({
   getSheetMetaList () : Set<SheetMeta> {
     return this.sheetMetas
   }
-  getSheets () : Set<Sheet> {
-
-  }
-  getSheetById (id: string) : Set<Sheet> {
-
-  }
 }

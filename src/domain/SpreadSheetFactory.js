@@ -66,7 +66,7 @@ export default class SpreadSheetFactory {
         id: entry.id.$t,
         updated: new Date(entry.updated.$t),
         title: entry.title.$t,
-        link: sheetLinks[0].href,
+        link: sheetLinks[0].href + '?alt=json',
       })
     })
 

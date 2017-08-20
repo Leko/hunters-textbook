@@ -25,16 +25,7 @@ describe(SpreadSheet.name, () => {
               'updated': {
                 '$t': '2017-08-20T08:06:42.167Z'
               },
-              'category': [
-                {
-                  'scheme': 'http://schemas.google.com/spreadsheets/2006',
-                  'term': 'http://schemas.google.com/spreadsheets/2006#worksheet'
-                }
-              ],
               'title': {
-                '$t': 'Shotgun'
-              },
-              'content': {
                 '$t': 'Shotgun'
               },
               'link': [
@@ -52,16 +43,7 @@ describe(SpreadSheet.name, () => {
               'updated': {
                 '$t': '2017-08-20T08:06:42.167Z'
               },
-              'category': [
-                {
-                  'scheme': 'http://schemas.google.com/spreadsheets/2006',
-                  'term': 'http://schemas.google.com/spreadsheets/2006#worksheet'
-                }
-              ],
               'title': {
-                '$t': 'Wildlife'
-              },
-              'content': {
                 '$t': 'Wildlife'
               },
               'link': [
