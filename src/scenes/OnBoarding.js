@@ -12,16 +12,35 @@ import { ConfigureTendencyUseCaseFactory } from '../usecase/ConfigureTendency'
 
 export default class OnBoarding extends PureComponent {
   handleChangeCount = (count) => () => {
-    const context = this.props.appContext
-    const useCase = ConfigureTendencyUseCaseFactory.create()
-    context.useCase(useCase).execute('count', count)
+    this.handleChanges('count', count)
   }
 
   handleChangeField = (field) => () => {
+    const currentTendency = this.props.tendencyState.tendency
+    this.handleChanges(field, !currentTendency[field])
+  }
+
+  async handleChanges (key, value) {
     const context = this.props.appContext
     const useCase = ConfigureTendencyUseCaseFactory.create()
-    const currentTendency = this.props.tendencyState.tendency
-    context.useCase(useCase).execute(field, !currentTendency[field])
+    context.useCase(useCase).execute(key, value)
+  }
+
+  handleComplete = () => {
+    const tendency = this.props.tendencyState.tendency.toJSON()
+    const searchParams = new URLSearchParams()
+    for (let prop in tendency) {
+      let value = tendency[prop]
+      if (typeof tendency[prop] === 'boolean') {
+        value = tendency[prop] ? 1 : 0
+      }
+      searchParams.append(prop, value)
+    }
+
+    this.props.history.push({
+      pathname: `/session`,
+      search: `?${searchParams.toString()}`,
+    })
   }
 
   render () {
@@ -83,7 +102,7 @@ export default class OnBoarding extends PureComponent {
           ))}
         </CardContent>
         <CardActions>
-          <Button raised color='primary'>GO!!!</Button>
+          <Button onClick={this.handleComplete} raised color='primary'>GO!!!</Button>
         </CardActions>
       </Card>
     )

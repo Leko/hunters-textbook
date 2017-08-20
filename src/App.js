@@ -58,6 +58,7 @@ class App extends PureComponent<void, void, State> {
     return (
       <ComponentClass
         appContext={this.props.appContext}
+        {...props}
         {...this.state}
       />
     )
@@ -82,7 +83,7 @@ class App extends PureComponent<void, void, State> {
               render={this.wrap(OnBoarding)}
             />
             <Route
-              path='/session/:part'
+              path='/session'
               render={this.wrap(Session)}
             />
             <Route
