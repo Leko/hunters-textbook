@@ -38,7 +38,7 @@ export default class OnBoarding extends PureComponent {
     }
 
     this.props.history.push({
-      pathname: `/session`,
+      pathname: `/${this.props.match.params.year}/session`,
       search: `?${searchParams.toString()}`,
     })
   }
