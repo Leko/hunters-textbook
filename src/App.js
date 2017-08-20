@@ -2,7 +2,7 @@
 
 import type { Context } from 'almin'
 import React, { PureComponent } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import {
   AppHeader,
   SideBar,
@@ -41,7 +41,7 @@ class App extends PureComponent<void, void, State> {
   }
 
   componentWillUnmount () {
-    if (typeof this.unSubscribe === "function") {
+    if (typeof this.unSubscribe === 'function') {
       this.unSubscribe()
     }
   }
@@ -76,20 +76,27 @@ class App extends PureComponent<void, void, State> {
             onRequestClose={this.handleCloseSideBar}
           />
 
-          <div className="container">
-            <Route
-              exact
-              path='/'
-              render={this.wrap(OnBoarding)}
-            />
-            <Route
-              path='/session'
-              render={this.wrap(Session)}
-            />
-            <Route
-              path='/q/:year/:category/:animal/:field'
-              render={this.wrap(Question)}
-            />
+          <div className='container'>
+            <Switch>
+              <Route
+                exact
+                path='/:year'
+                render={this.wrap(OnBoarding)}
+              />
+              <Route
+                exact
+                path='/:year/session'
+                render={this.wrap(Session)}
+              />
+              <Route
+                exact
+                path='/:year/q/:category/:animal/:field'
+                render={this.wrap(Question)}
+              />
+              <Route render={() => (
+                <Redirect exact to={`/${new Date().getFullYear()}`}/>
+              )} />
+            </Switch>
           </div>
         </div>
       </Router>
@@ -97,29 +104,29 @@ class App extends PureComponent<void, void, State> {
   }
 }
 
-// <Grid container justify='center' className="App">
+// <Grid container justify='center' className='App'>
 //   <Grid item xs={12} sm={6}>
 //     <Card style={{ width: '100%' }}>
 //       <CardHeader
 //         subheader='平成29年度 > 判別'
 //         style={{ paddingTop: 5, paddingBottom: 5 }}
 //       />
-//       <img src="http://www.chusankan.net/blog/jimu/archives/assets_c/2009/10/middle_1239343266[1]-thumb-300x264-1840.jpg" alt=""/>
+//       <img src='http://www.chusankan.net/blog/jimu/archives/assets_c/2009/10/middle_1239343266[1]-thumb-300x264-1840.jpg' alt='/>
 //       <CardContent>
 //         これは何
 //       </CardContent>
 //       <List>
 //         <ListItem button dense>
-//           <ListItemText primary="コジュケイ" />
+//           <ListItemText primary='コジュケイ' />
 //         </ListItem>
 //         <ListItem button dense>
-//           <ListItemText primary="ムクドリ" />
+//           <ListItemText primary='ムクドリ' />
 //         </ListItem>
 //         <ListItem button dense>
-//           <ListItemText primary="ヨシガモ" />
+//           <ListItemText primary='ヨシガモ' />
 //         </ListItem>
 //         <ListItem button dense>
-//           <ListItemText primary="ヒクイナ" />
+//           <ListItemText primary='ヒクイナ' />
 //         </ListItem>
 //       </List>
 //     </Card>
