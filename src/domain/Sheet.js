@@ -2,12 +2,11 @@
 
 import type { Cell } from './'
 import { Record, Set } from 'immutable'
-import SheetMeta from './SheetMeta'
 
 export default class Sheet extends Record({
+  id: '',
   title: '',
   rows: Set(),
-  meta: new SheetMeta(),
 }) {
   getRowHeaders () : Set<Cell> {}
   getColumnHeaders () : Set<Cell> {}

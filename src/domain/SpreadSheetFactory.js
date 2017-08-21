@@ -27,6 +27,22 @@ type SpreadSheetBasicEntity = {
   gs$colCount: SpreadSheetBasicEntityData,
   gs$rowCount: SpreadSheetBasicEntityData
 }
+type SpreadSheetCellsEntityCell = {
+  row: string,
+  col: string,
+  $t: string,
+}
+type SpreadSheetCellsEntity = {
+  id: SpreadSheetBasicEntityData,
+  updated: SpreadSheetBasicEntityData,
+  category: Array<SpreadSheetBasicEntityCategory>,
+  title: SpreadSheetBasicEntityData,
+  content: SpreadSheetBasicEntityData,
+  link: Array<SpreadSheetBasicEntityLink>,
+  gs$cell: SpreadSheetCellsEntityCell,
+  gs$colCount: SpreadSheetBasicEntityData,
+  gs$rowCount: SpreadSheetBasicEntityData
+}
 type SpreadSheetBasicAuthor = {
   name: SpreadSheetBasicEntityData,
   email: SpreadSheetBasicEntityData,
@@ -45,10 +61,29 @@ type SpreadSheetBasicFeed = {
   openSearch$startIndex: SpreadSheetBasicEntityData,
   entry: SpreadSheetBasicEntity | Array<SpreadSheetBasicEntity>,
 }
+type SpreadSheetCellsFeed = {
+  xmlns: 'http://www.w3.org/2005/Atom',
+  xmlns$openSearch: 'http://a9.com/-/spec/opensearchrss/1.0/',
+  xmlns$gs: 'http://schemas.google.com/spreadsheets/2006',
+  id: SpreadSheetBasicEntityData,
+  updated: SpreadSheetBasicEntityData,
+  category: Array<SpreadSheetBasicEntityCategory>,
+  title: SpreadSheetBasicEntityData,
+  link: Array<SpreadSheetBasicEntityLink>,
+  author: Array<SpreadSheetBasicAuthor>,
+  openSearch$totalResults: SpreadSheetBasicEntityData,
+  openSearch$startIndex: SpreadSheetBasicEntityData,
+  entry: Array<SpreadSheetCellsEntity>,
+}
 type SpreadSheetBasic = {
   version: string,
   encoding: 'UTF-8',
   feed: SpreadSheetBasicFeed,
+}
+type SpreadSheetCells = {
+  version: string,
+  encoding: 'UTF-8',
+  feed: SpreadSheetCellsFeed,
 }
 
 export default class SpreadSheetFactory {

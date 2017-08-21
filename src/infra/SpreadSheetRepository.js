@@ -1,19 +1,36 @@
 // @flow
 
 import fetch from 'isomorphic-fetch'
+import { spreadsheets } from '../config'
 import Repository from '../lib/Repository'
-import { SpreadSheetFactory } from '../domain'
+import SpreadSheetAdapter from './adapter/SpreadSheet'
+import { SpreadSheet, SheetFactory } from '../domain'
 
-export default class SpreadSheetRepository extends Repository {
+export class SpreadSheetRepository extends Repository {
   async getByYear(year: number) : SpreadSheet {
-    const id = String(year)
-    if (!this.database.get(id)) {
+    if (!spreadsheets[year]) {
       throw new Error(`Unknown year: ${year}`)
     }
 
-    const { url } = this.database.get(id)
-    // FIXME: HTTP依存
-    const response = await fetch(url)
-    return SpreadSheetFactory.fromBasic(await response.json())
+    const sheets = {}
+    for (let name in spreadsheets[year].sheets) {
+      const sheetId = spreadsheets[year].sheets[name]
+      const sheet = await this.get(`${spreadsheets[year].id}.${sheetId}`)
+      sheets[name] = sheet
+    }
+
+    return new SpreadSheet({ ...sheets, id: spreadsheets[year].id })
+  }
+
+  async get(key) {
+    const spreadSheet = await this.database.get(key)
+    if (!spreadSheet) {
+      throw new Error(`Unknown key: ${key}`)
+    }
+
+    const res = await this.database.get(key)
+    return SheetFactory.fromCells(res)
   }
 }
+
+export default new SpreadSheetRepository(new SpreadSheetAdapter())

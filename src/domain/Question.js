@@ -1,10 +1,11 @@
 // @flow
 
-import { Record, Set } from 'immutable'
+import { Record } from 'immutable'
 
 export default class Question extends Record({
+  image: null,
   sentence: '',
-  choices: Set(),
+  choices: [],
   answer: -1,
 }) {
   isAccepted (idx: number) : boolean {

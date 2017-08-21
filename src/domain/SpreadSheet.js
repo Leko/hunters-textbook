@@ -1,15 +1,11 @@
 // @flow
 
 import { Record, Set } from 'immutable'
-import { SheetMeta } from './'
+import { Sheet } from './'
 
 export default class SpreadSheet extends Record({
   id: '',
-  title: '',
-  sheetMetas: new Set([]),
-  updated: new Date(),
+  wildlife: new Sheet(),
+  effectiveRange: new Sheet(),
 }) {
-  getSheetMetaList () : Set<SheetMeta> {
-    return this.sheetMetas
-  }
 }
