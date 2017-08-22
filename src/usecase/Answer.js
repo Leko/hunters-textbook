@@ -10,15 +10,9 @@ export class AnswerUseCaseFactory {
 }
 
 export default class AnswerUseCase extends UseCase {
-  // constructor ({ tendencyRepository }: { tendencyRepository: TendencyRepository }) {
-  //   super()
-  //   this.tendencyRepository = tendencyRepository
-  // }
-
-  async execute (question: Question, answerIndex: number) {
+  execute (question: Question, answerIndex: number) {
     const type = AnswerUseCase.name
     const correct = answerIndex === question.answer
-    console.log(correct ? '正解！' : 'ぶぶー')
 
     // TODO: アナリティクス
 
