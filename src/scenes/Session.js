@@ -13,6 +13,7 @@ import { RestoreSessionFromQueryUseCaseFactory } from '../usecase/RestoreSession
 import { AnswerUseCaseFactory } from '../usecase/Answer'
 import { NextQuestionUseCaseFactory } from '../usecase/NextQuestion'
 import Question from './Question'
+import '../styles/Session.css'
 
 type Props = {
   part: number,
@@ -60,20 +61,25 @@ export default class Session extends PureComponent<void, Props> {
           question={question}
           onAnswer={this.handleClickAnswer}
         />
-        <Dialog open={needFeedback} onRequestClose={this.handleRequestClose}>
+        <Dialog
+          ignoreBackdropClick
+          ignoreEscapeKeyUp
+          maxWidth='xs'
+          open={needFeedback}
+          onRequestClose={this.handleRequestClose}
+          classes={{
+            paper: 'Session__modal',
+          }}
+        >
           <DialogTitle>{question.correct ? '正解' : '不正解'}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
+              正解：{question.getAnswer()}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleRequestClose} color="primary">
-              Disagree
-            </Button>
-            <Button onClick={this.handleRequestClose} color="primary">
-              Agree
+              次の問題へ
             </Button>
           </DialogActions>
         </Dialog>

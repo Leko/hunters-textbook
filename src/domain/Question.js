@@ -13,6 +13,10 @@ export default class Question extends Record({
     return idx === this.answer
   }
 
+  getAnswer () : string {
+    return this.choices[this.answer].text
+  }
+
   getAppendix () : string {
 
   }
