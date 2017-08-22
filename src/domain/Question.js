@@ -7,6 +7,7 @@ export default class Question extends Record({
   sentence: '',
   choices: [],
   answer: -1,
+  correct: null, // null = 未回答、bool = 回答済み
 }) {
   isAccepted (idx: number) : boolean {
     return idx === this.answer

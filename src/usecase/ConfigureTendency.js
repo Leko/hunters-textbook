@@ -5,7 +5,7 @@ import { UseCase } from 'almin'
 import { QuestionTendency } from '../domain'
 import tendencyRepository from '../infra/TendencyRepository'
 
-type Fields = coverIdentify | coverALaCarte | onlyIllust | onlyBeasts | onlyBirds
+type Fields = coverIdentify | coverALaCarte | onlyIllust | onlyBeasts | onlyBirds;
 
 export class ConfigureTendencyUseCaseFactory {
   static create () : ConfigureTendencyUseCase {

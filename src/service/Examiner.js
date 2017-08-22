@@ -80,7 +80,7 @@ export default class Examiner {
   static getChoices (wildlifes, choiceField, answer) {
     const answerTargets = wildlifes
       .filter(wildlife => {
-        if (!wildlife[choiceField]) {
+        if (wildlife[choiceField] === null) {
           return false
         }
         // FIXME: idにする

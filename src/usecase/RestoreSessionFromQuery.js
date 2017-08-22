@@ -27,9 +27,10 @@ export default class RestoreSessionFromQueryUseCase extends UseCase {
   }
 
   async execute (year, queryString) {
+    const type = RestoreSessionFromQueryUseCase.name
     const tendency = QuestionTendencyFactory.fromQueryString(queryString)
     const spreadSheet = await this.spreadSheetRepository.getByYear(year)
     const questions = await Examiner.createQuestions(spreadSheet, tendency)
-    console.log(questions.map(q => JSON.stringify([q.sentence,q.choices.map(c => c.text)])))
+    this.dispatch({ type, questions })
   }
 }

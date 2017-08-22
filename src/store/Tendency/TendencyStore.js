@@ -4,7 +4,7 @@ import { Store } from 'almin'
 import { QuestionTendency } from '../../domain'
 import TendencyState, { COUNT_STEPS } from './TendencyState'
 
-export default class TodoStore extends Store {
+export default class TendencyStore extends Store {
   constructor({ tendencyRepository }) {
     super()
     this.state = new TendencyState({
