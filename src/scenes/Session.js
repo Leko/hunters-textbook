@@ -9,6 +9,8 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog'
+import IconClose from 'material-ui-icons/Close'
+import IconCheck from 'material-ui-icons/Check'
 import { RestoreSessionFromQueryUseCaseFactory } from '../usecase/RestoreSessionFromQuery'
 import { AnswerUseCaseFactory } from '../usecase/Answer'
 import { NextQuestionUseCaseFactory } from '../usecase/NextQuestion'
@@ -50,6 +52,7 @@ export default class Session extends PureComponent<void, Props> {
     if (!question) {
       return null
     }
+    const IconComponent = question.correct ? IconCheck : IconClose
 
     return (
       <div>
@@ -71,7 +74,13 @@ export default class Session extends PureComponent<void, Props> {
             paper: 'Session__modal',
           }}
         >
-          <DialogTitle>{question.correct ? '正解' : '不正解'}</DialogTitle>
+          <DialogTitle classes={{ root: 'Session__modal__title' }}>
+            <IconComponent
+              className={`Session__modal__icon ${question.correct ? 'Session__modal__icon--correct' : 'Session__modal__icon--wrong'}`}
+            />
+            <br/>
+            {question.correct ? '正解' : '不正解'}
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
               正解：{question.getAnswer()}

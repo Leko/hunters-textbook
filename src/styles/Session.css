@@ -1,3 +1,19 @@
 .Session__modal {
   min-width: 90%;
 }
+.Session__modal__title {
+  text-align: center;
+}
+.Session__modal__icon {
+  /* FIXME: ゴリ押し */
+  width: 100px !important;
+  height: 100px !important;
+}
+.Session__modal__icon--correct {
+  /* FIXME: SCSS(変数)化 */
+  color: green;
+}
+.Session__modal__icon--wrong {
+  /* FIXME: SCSS(変数)化 */
+  color: red;
+}
