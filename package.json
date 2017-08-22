@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "almin": "^0.13.11",
+    "almin-logger": "^6.0.0",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "localstorage-ponyfill": "^1.0.1",
@@ -22,7 +23,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "almin-logger": "^6.0.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
