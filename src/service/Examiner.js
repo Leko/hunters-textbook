@@ -19,6 +19,7 @@ export default class Examiner {
     const intOrNot = (cell) => parseOrNot(cell, c => parseInt(c.getValue(), 10))
     const boolOrNot = (cell) => parseOrNot(cell, c => c.isYes())
     const listOrNot = (cell) => parseOrNot(cell, c => c.getValue().split('\n').filter(t => !!t.trim()))
+    const listPipedOrNot = (cell) => parseOrNot(cell, c => c.getValue().split('\n').filter(t => !!t.trim()).map(t => t.split('|')))
 
     const toAnimal = (row) : Wildlife => {
       const [
@@ -50,8 +51,8 @@ export default class Examiner {
       return {
         id:                 valueOrNot(id),                 // ID
         name:               valueOrNot(name),               // 名前
-        illustUrls:         listOrNot(illustUrls),          // イラストURL
-        photoUrls:          listOrNot(photoUrls),           // 画像URL
+        illustUrls:         listPipedOrNot(illustUrls),     // イラストURL
+        photoUrls:          listPipedOrNot(photoUrls),      // 画像URL
         canHunt:            boolOrNot(canHunt),             // 狩猟鳥獣?
         isBeast:            boolOrNot(isBeast),             // 獣？
         isBird:             boolOrNot(isBird),              // 鳥？

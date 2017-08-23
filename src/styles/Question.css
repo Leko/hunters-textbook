@@ -1,0 +1,9 @@
+.Question__header {
+  
+}
+.Question__header__media {
+  height: 200px;
+}
+.Question__header__media__copyright {
+  padding-bottom: 0 !important;
+}
