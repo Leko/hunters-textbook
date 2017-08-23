@@ -45,8 +45,7 @@ export default class Session extends PureComponent<void, Props> {
     context.useCase(useCase).execute(this.props.match.params.year, this.props.location.search)
   }
 
-  render () {
-    console.log(this.props.sessionState)
+  renderQuestion () {
     const { part, questions, needFeedback, finished } = this.props.sessionState
     const question = this.currentQuestion
     if (!question) {
@@ -94,5 +93,28 @@ export default class Session extends PureComponent<void, Props> {
         </Dialog>
       </div>
     )
+  }
+
+  renderScore () {
+    const { part, questions, needFeedback, finished } = this.props.sessionState
+    return (
+      <div>
+        {questions.length}問中{questions.filter(q => q.correct).length}問正解
+        {questions.map(q => {
+          return (
+            <span>{q.sentence}</span>
+          )
+        })}
+      </div>
+    )
+  }
+
+  render () {
+    const { finished } = this.props.sessionState
+    if (finished) {
+      return this.renderScore()
+    } else {
+      return this.renderQuestion()
+    }
   }
 }
