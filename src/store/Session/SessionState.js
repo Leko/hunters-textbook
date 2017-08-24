@@ -1,9 +1,11 @@
 // @flow
 
 import type { QuestionTendency } from '../../domain'
-import RestoreSessionFromQueryUseCase from '../../usecase/RestoreSessionFromQuery'
-import NextQuestionUseCase from '../../usecase/NextQuestion'
-import AnswerUseCase from '../../usecase/Answer'
+import {
+  RESTORE_SESSION_FROM_QUERY,
+  NEXT_QUESTION,
+  ANSWER,
+} from '../../const/actions'
 
 const COUNT_STEPS = [10, 20, 30, 50]
 
@@ -33,17 +35,17 @@ export default class SessionState {
 
   reduce(payload) {
     switch (payload.type) {
-      case RestoreSessionFromQueryUseCase.name:
+      case RESTORE_SESSION_FROM_QUERY:
         return this.merge({
           questions: payload.questions,
         })
-      case NextQuestionUseCase.name:
+      case NEXT_QUESTION:
         return this.merge({
           part: Math.min(this.part + 1, this.questions.length - 1),
           finished: this.part === this.questions.length - 1,
           needFeedback: false,
         })
-      case AnswerUseCase.name:
+      case ANSWER:
         const questions = this.questions.slice()
         const question = questions[this.part]
         questions[this.part] = question.set('correct', payload.correct)

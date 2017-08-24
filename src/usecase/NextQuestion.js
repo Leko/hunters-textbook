@@ -2,6 +2,7 @@
 
 import type { Question } from '../domain/Question'
 import { UseCase } from 'almin'
+import { NEXT_QUESTION } from '../const/actions'
 
 export class NextQuestionUseCaseFactory {
   static create () : NextQuestionUseCase {
@@ -11,6 +12,6 @@ export class NextQuestionUseCaseFactory {
 
 export default class NextQuestionUseCase extends UseCase {
   execute () {
-    this.dispatch({ type: NextQuestionUseCase.name })
+    this.dispatch({ type: NEXT_QUESTION })
   }
 }

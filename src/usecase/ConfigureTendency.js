@@ -4,6 +4,7 @@ import type { TendencyRepository } from '../infra/TendencyRepository'
 import { UseCase } from 'almin'
 import { QuestionTendency } from '../domain'
 import tendencyRepository from '../infra/TendencyRepository'
+import { CONFIGURE_TENDENCY } from '../const/actions'
 
 type Fields = coverIdentify | coverALaCarte | onlyIllust | onlyBeasts | onlyBirds;
 
@@ -20,7 +21,7 @@ export default class ConfigureTendencyUseCase extends UseCase {
   }
 
   async execute (field: Fields, value: any) {
-    const type = ConfigureTendencyUseCase.name
+    const type = CONFIGURE_TENDENCY
     const changes = { [field]: value }
     const newTendency = new QuestionTendency(changes)
 
