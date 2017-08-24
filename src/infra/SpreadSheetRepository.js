@@ -1,6 +1,5 @@
 // @flow
 
-import fetch from 'isomorphic-fetch'
 import { spreadsheets } from '../config'
 import Repository from '../lib/Repository'
 import SpreadSheetAdapter from './adapter/SpreadSheet'

@@ -1,6 +1,6 @@
 // @flow
 
-import { Record, Set } from 'immutable'
+import { Record } from 'immutable'
 import { Sheet } from './'
 
 export default class SpreadSheet extends Record({

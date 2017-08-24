@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react'
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
-import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card'
+import Card, { CardContent, CardMedia } from 'material-ui/Card'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import '../styles/Question.css'
 

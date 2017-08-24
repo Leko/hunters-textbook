@@ -1,6 +1,5 @@
 // @flow
 
-import type { QuestionTendency } from '../../domain'
 import {
   RESTORE_SESSION_FROM_QUERY,
   NEXT_QUESTION,

@@ -6,9 +6,8 @@ import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
-import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card'
+import Card, { CardContent } from 'material-ui/Card'
 import List, { ListItem, ListItemIcon, ListItemAvatar, ListItemText } from 'material-ui/List'
-import Button from 'material-ui/Button'
 import IconClose from 'material-ui-icons/Close'
 import IconCheck from 'material-ui-icons/Check'
 import { RestoreSessionFromQueryUseCaseFactory } from '../usecase/RestoreSessionFromQuery'
@@ -47,7 +46,7 @@ export default class Session extends PureComponent<void, Props> {
   }
 
   renderQuestion () {
-    const { part, questions, needFeedback, finished } = this.props.sessionState
+    const { part, questions, needFeedback } = this.props.sessionState
     const question = this.currentQuestion
     if (!question) {
       return null
@@ -73,7 +72,7 @@ export default class Session extends PureComponent<void, Props> {
   }
 
   renderScore () {
-    const { part, questions, needFeedback, finished } = this.props.sessionState
+    const { questions } = this.props.sessionState
     return (
       <Grid container justify='center'>
         <Grid item xs={12} sm={6}>

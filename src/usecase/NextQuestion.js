@@ -1,6 +1,5 @@
 // @flow
 
-import type { Question } from '../domain/Question'
 import { UseCase } from 'almin'
 import { NEXT_QUESTION } from '../const/actions'
 
