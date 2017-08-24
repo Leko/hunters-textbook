@@ -5,5 +5,6 @@
   height: 200px;
 }
 .Question__header__media__copyright {
+  text-align: right;
   padding-bottom: 0 !important;
 }

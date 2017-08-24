@@ -1,7 +1,9 @@
 // @flow
 
 import React, { PureComponent } from 'react'
+import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
+import Button from 'material-ui/Button'
 import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import '../styles/Question.css'
@@ -24,12 +26,25 @@ export default class Question extends PureComponent {
                 <div className='Question__header'>
                   <CardMedia image={image[1]} className='Question__header__media' />
                   <CardContent className='Question__header__media__copyright'>
-                    <a href={image[0]}>{image[2] || new URL(image[0]).host}</a>
+                    <Button
+                      dense
+                      color='inherit'
+                      target='_blank'
+                      href={image[0]}
+                    >
+                      <Typography type='caption'>
+                        Photo {image[2] || new URL(image[0]).host}
+                      </Typography>
+                    </Button>
                   </CardContent>
                 </div>
               )
               : null}
-            <CardContent>{sentence}</CardContent>
+            <CardContent>
+              <Typography>
+                {sentence}
+              </Typography>
+            </CardContent>
             <List>
               {choices.map((choice, i) => (
                 <ListItem key={choice.text} button dense onClick={this.handleClickAnswer(i)}>
