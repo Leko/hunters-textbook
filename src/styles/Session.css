@@ -11,9 +11,17 @@
 }
 .Session__modal__icon--correct {
   /* FIXME: SCSS(変数)化 */
-  color: green;
+  color: green !important;
 }
 .Session__modal__icon--wrong {
   /* FIXME: SCSS(変数)化 */
-  color: red;
+  color: red !important;
+}
+.Session__score__question {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.Session__score__avatar {
+  width: 40px !important;
+  height: 40px !important;
 }

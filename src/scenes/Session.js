@@ -2,19 +2,20 @@
 
 import React, { PureComponent } from 'react'
 import { LinearProgress } from 'material-ui/Progress'
+import Typography from 'material-ui/Typography'
+import Grid from 'material-ui/Grid'
+import Avatar from 'material-ui/Avatar'
+import Divider from 'material-ui/Divider'
+import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card'
+import List, { ListItem, ListItemIcon, ListItemAvatar, ListItemText } from 'material-ui/List'
 import Button from 'material-ui/Button'
-import Dialog, {
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from 'material-ui/Dialog'
 import IconClose from 'material-ui-icons/Close'
 import IconCheck from 'material-ui-icons/Check'
 import { RestoreSessionFromQueryUseCaseFactory } from '../usecase/RestoreSessionFromQuery'
 import { AnswerUseCaseFactory } from '../usecase/Answer'
 import { NextQuestionUseCaseFactory } from '../usecase/NextQuestion'
 import Question from './Question'
+import QuestionFeedbackModal from '../components/QuestionFeedbackModal'
 import '../styles/Session.css'
 
 type Props = {
@@ -51,7 +52,6 @@ export default class Session extends PureComponent<void, Props> {
     if (!question) {
       return null
     }
-    const IconComponent = question.correct ? IconCheck : IconClose
 
     return (
       <div>
@@ -63,34 +63,11 @@ export default class Session extends PureComponent<void, Props> {
           question={question}
           onAnswer={this.handleClickAnswer}
         />
-        <Dialog
-          ignoreBackdropClick
-          ignoreEscapeKeyUp
-          maxWidth='xs'
+        <QuestionFeedbackModal
           open={needFeedback}
+          question={question}
           onRequestClose={this.handleRequestClose}
-          classes={{
-            paper: 'Session__modal',
-          }}
-        >
-          <DialogTitle classes={{ root: 'Session__modal__title' }}>
-            <IconComponent
-              className={`Session__modal__icon ${question.correct ? 'Session__modal__icon--correct' : 'Session__modal__icon--wrong'}`}
-            />
-            <br/>
-            {question.correct ? '正解' : '不正解'}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              正解：{question.getAnswer()}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleRequestClose} color="primary">
-              次の問題へ
-            </Button>
-          </DialogActions>
-        </Dialog>
+        />
       </div>
     )
   }
@@ -98,14 +75,43 @@ export default class Session extends PureComponent<void, Props> {
   renderScore () {
     const { part, questions, needFeedback, finished } = this.props.sessionState
     return (
-      <div>
-        {questions.length}問中{questions.filter(q => q.correct).length}問正解
-        {questions.map(q => {
-          return (
-            <span>{q.sentence}</span>
-          )
-        })}
-      </div>
+      <Grid container justify='center'>
+        <Grid item xs={12} sm={6}>
+          <Card style={{ width: '100%' }}>
+            <CardContent>
+              <Typography>
+                {questions.length}問中{questions.filter(q => q.correct).length}問正解
+              </Typography>
+            </CardContent>
+              {questions.map((q, i) => {
+                const IconComponent = q.correct ? IconCheck : IconClose
+                return (
+                  <List className='Session__score__question'>
+                    <ListItem key={i} button>
+                      <ListItemIcon>
+                        <IconComponent
+                          className={`${q.correct ? 'Session__modal__icon--correct' : 'Session__modal__icon--wrong'}`}
+                        />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={q.sentence}
+                        secondary={`正解：${q.getAnswer()}`}
+                      />
+                      {q.image
+                        ? (
+                          <ListItemAvatar>
+                            <Avatar src={q.image[1]} classes={{ img: 'Session__score__avatar' }} />
+                          </ListItemAvatar>
+                        )
+                        : null}
+                    </ListItem>
+                    <Divider />
+                  </List>
+                )
+              })}
+          </Card>
+        </Grid>
+      </Grid>
     )
   }
 
