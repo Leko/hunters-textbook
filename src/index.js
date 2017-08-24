@@ -13,7 +13,9 @@ const appContext = new Context({
   options: { strict: true },
 })
 
-new AlminLogger().startLogging(appContext)
+if (process.env.NODE_ENV !== 'production') {
+  new AlminLogger().startLogging(appContext)
+}
 
 ReactDOM.render(<App appContext={appContext} />, document.getElementById('root'))
 registerServiceWorker()
