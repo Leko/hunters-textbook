@@ -22,6 +22,7 @@ export default class QuestionFeedbackModal extends PureComponent {
         maxWidth='xs'
         open={this.props.open}
         onRequestClose={this.props.onRequestClose}
+        onExited={this.props.onHide}
         classes={{
           paper: 'Session__modal',
         }}

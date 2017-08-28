@@ -3,6 +3,7 @@
 import {
   RESET_ALL,
   RESTORE_SESSION_FROM_QUERY,
+  EXIT_FEEDBACK,
   NEXT_QUESTION,
   ANSWER,
 } from '../../const/actions'
@@ -41,11 +42,14 @@ export default class SessionState {
         return this.merge({
           questions: payload.questions,
         })
+      case EXIT_FEEDBACK:
+        return this.merge({
+          needFeedback: false,
+        })
       case NEXT_QUESTION:
         return this.merge({
           part: Math.min(this.part + 1, this.questions.length - 1),
           finished: this.part === this.questions.length - 1,
-          needFeedback: false,
         })
       case ANSWER:
         const questions = this.questions.slice()

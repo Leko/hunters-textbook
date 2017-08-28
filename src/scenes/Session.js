@@ -13,6 +13,7 @@ import IconCheck from 'material-ui-icons/Check'
 import { RestoreSessionFromQueryUseCaseFactory } from '../usecase/RestoreSessionFromQuery'
 import { AnswerUseCaseFactory } from '../usecase/Answer'
 import { NextQuestionUseCaseFactory } from '../usecase/NextQuestion'
+import { ExitFeedbackUseCaseFactory } from '../usecase/ExitFeedback'
 import Question from './Question'
 import QuestionFeedbackModal from '../components/QuestionFeedbackModal'
 import '../styles/Session.css'
@@ -34,6 +35,12 @@ export default class Session extends PureComponent<void, Props> {
   }
 
   handleRequestClose = () => {
+    const context = this.props.appContext
+    const useCase = ExitFeedbackUseCaseFactory.create()
+    context.useCase(useCase).execute()
+  }
+
+  handleExit = () => {
     const context = this.props.appContext
     const useCase = NextQuestionUseCaseFactory.create()
     context.useCase(useCase).execute()
@@ -66,6 +73,7 @@ export default class Session extends PureComponent<void, Props> {
           open={needFeedback}
           question={question}
           onRequestClose={this.handleRequestClose}
+          onHide={this.handleExit}
         />
       </div>
     )
