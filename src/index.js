@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import ReactGA from 'react-ga'
 import { Context, Dispatcher } from 'almin'
 import { AlminLogger } from 'almin-logger'
 import AppStoreGroup from './store/AppStoreGroup'
@@ -16,6 +17,8 @@ const appContext = new Context({
 if (process.env.NODE_ENV !== 'production') {
   new AlminLogger().startLogging(appContext)
 }
+
+ReactGA.initialize('UA-105406156-1')
 
 ReactDOM.render(<App appContext={appContext} />, document.getElementById('root'))
 registerServiceWorker()

@@ -4,6 +4,7 @@ import type { Context } from 'almin'
 import React, { PureComponent } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import {
+  Analytics,
   AppHeader,
   SideBar,
 } from './components'
@@ -23,7 +24,8 @@ type State = {
 }
 
 class App extends PureComponent<void, void, State> {
-  unSubscribe: Function
+  unSubscribeHistory: Function
+  unSubscribeAlmin: Function
 
   constructor (props: Props) {
     super(props)
@@ -37,12 +39,12 @@ class App extends PureComponent<void, void, State> {
     const handleChange = () => {
       this.setState(context.getState())
     }
-    this.unSubscribe = context.onChange(handleChange)
+    this.unSubscribeAlmin = context.onChange(handleChange)
   }
 
   componentWillUnmount () {
-    if (typeof this.unSubscribe === 'function') {
-      this.unSubscribe()
+    if (typeof this.unSubscribeAlmin === 'function') {
+      this.unSubscribeAlmin()
     }
   }
 
@@ -68,6 +70,7 @@ class App extends PureComponent<void, void, State> {
     return (
       <Router>
         <div className='root'>
+          <Route path='/' component={Analytics} />
           <AppHeader
             onRequestSideBar={this.handleOpenSideBar}
           />

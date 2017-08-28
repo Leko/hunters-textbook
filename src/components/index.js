@@ -1,5 +1,6 @@
 // @flow
 
+export { default as Analytics } from './Analytics'
 export { default as SideBar } from './SideBar'
 export { default as AppHeader } from './AppHeader'
 export { default as QuestionFeedbackModal } from './QuestionFeedbackModal'
