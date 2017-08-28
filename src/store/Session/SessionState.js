@@ -1,5 +1,6 @@
 // @flow
 
+import type { Question } from '../../domain'
 import {
   RESET_ALL,
   RESTORE_SESSION_FROM_QUERY,
@@ -15,11 +16,11 @@ export {
 }
 
 export default class SessionState {
-  constructor({ questions = [], part = 0, finished = false, needFeedback = false }: {
+  constructor({ questions = [], part = 0, finished = false, feedbackQuestion = null }: {
     questions: Array<Question>,
     part: number,
     finished: boolean,
-    needFeedback: boolean,
+    feedbackQuestion: Question,
   } = {}) {
     if (part > 0 && questions.length > 0 && part >= questions.length) {
       throw new Error(`part(${part}) must be less than questions.length(${questions.length})`)
@@ -27,7 +28,7 @@ export default class SessionState {
     this.questions = questions
     this.part = part
     this.finished = finished
-    this.needFeedback = needFeedback
+    this.feedbackQuestion = feedbackQuestion
   }
 
   merge (payload) {
@@ -44,7 +45,7 @@ export default class SessionState {
         })
       case EXIT_FEEDBACK:
         return this.merge({
-          needFeedback: false,
+          feedbackQuestion: null,
         })
       case NEXT_QUESTION:
         return this.merge({
@@ -52,12 +53,15 @@ export default class SessionState {
           finished: this.part === this.questions.length - 1,
         })
       case ANSWER:
-        const questions = this.questions.slice()
-        const question = questions[this.part]
-        questions[this.part] = question.set('correct', payload.correct)
+        const { question, answerIndex } = payload
+        const tmpQuestions = this.questions.slice()
+        const newQuestion = question.merge({
+          correct: question.isAccepted(answerIndex)
+        })
+        tmpQuestions[this.part] = newQuestion
         return this.merge({
-          questions,
-          needFeedback: true,
+          questions: tmpQuestions,
+          feedbackQuestion: newQuestion,
         })
       default:
         return this

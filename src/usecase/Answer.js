@@ -13,10 +13,9 @@ export class AnswerUseCaseFactory {
 export default class AnswerUseCase extends UseCase {
   execute (question: Question, answerIndex: number) {
     const type = ANSWER
-    const correct = answerIndex === question.answer
 
     // TODO: アナリティクス
 
-    this.dispatch({ type, correct })
+    this.dispatch({ question, answerIndex, type })
   }
 }

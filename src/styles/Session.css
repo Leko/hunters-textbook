@@ -4,18 +4,23 @@
 .Session__modal__title {
   text-align: center;
 }
+.Session__feedback__summary {
+  vertical-align: super;
+}
+.Session__feedback__icon {
+}
+.Session__feedback__icon--correct {
+  /* FIXME: SCSS(変数)化 */
+  color: #7cb342 !important;
+}
+.Session__feedback__icon--wrong {
+  /* FIXME: SCSS(変数)化 */
+  color: #ff4081 !important;
+}
 .Session__modal__icon {
-  /* FIXME: ゴリ押し */
+  /* FIXME: ごりおし */
   width: 100px !important;
   height: 100px !important;
-}
-.Session__modal__icon--correct {
-  /* FIXME: SCSS(変数)化 */
-  color: green !important;
-}
-.Session__modal__icon--wrong {
-  /* FIXME: SCSS(変数)化 */
-  color: red !important;
 }
 .Session__score__question {
   padding-top: 0 !important;

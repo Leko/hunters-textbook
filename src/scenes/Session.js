@@ -28,20 +28,13 @@ export default class Session extends PureComponent<void, Props> {
 
   handleClickAnswer = (index) => {
     const context = this.props.appContext
-    const useCase = AnswerUseCaseFactory.create()
-    context.useCase(useCase).execute(this.currentQuestion, index)
+    context.useCase(AnswerUseCaseFactory.create()).execute(this.currentQuestion, index)
+    context.useCase(NextQuestionUseCaseFactory.create()).execute()
   }
 
   handleRequestClose = () => {
     const context = this.props.appContext
-    const useCase = ExitFeedbackUseCaseFactory.create()
-    context.useCase(useCase).execute()
-  }
-
-  handleExit = () => {
-    const context = this.props.appContext
-    const useCase = NextQuestionUseCaseFactory.create()
-    context.useCase(useCase).execute()
+    context.useCase(ExitFeedbackUseCaseFactory.create()).execute()
   }
 
   componentWillMount () {
@@ -51,7 +44,7 @@ export default class Session extends PureComponent<void, Props> {
   }
 
   renderQuestion () {
-    const { part, questions, needFeedback } = this.props.sessionState
+    const { part, questions, feedbackQuestion } = this.props.sessionState
     const question = this.currentQuestion
     if (!question) {
       return null
@@ -68,8 +61,8 @@ export default class Session extends PureComponent<void, Props> {
           onAnswer={this.handleClickAnswer}
         />
         <QuestionFeedbackModal
-          open={needFeedback}
-          question={question}
+          open={!!feedbackQuestion}
+          question={feedbackQuestion}
           onRequestClose={this.handleRequestClose}
           onHide={this.handleExit}
         />
