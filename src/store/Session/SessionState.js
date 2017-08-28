@@ -56,6 +56,11 @@ export default class SessionState {
             action: 'Finished',
             value: this.questions.length,
           })
+          ReactGA.event({
+            category: 'Session',
+            action: 'Accept ratio',
+            value: parseFloat((this.questions.filter(q => q.correct).length / this.questions.length).toFixed(2)) * 100,
+          })
         }
         return this.merge({
           part: Math.min(this.part + 1, this.questions.length - 1),
