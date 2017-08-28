@@ -11,6 +11,20 @@ import { Question, Choice } from '../domain'
 
 type Wildlife = {};
 
+const illustFields = [
+  'illustUrls',
+]
+const identifyFields = illustFields.concat([
+  'photoUrls',
+])
+const ignoreFields = [
+  'id',
+  'name',
+  'isBeast',
+  'isBird',
+  'similarIds',
+]
+
 export default class Examiner {
   // FIXME: 汎用化
   static parseWildlifeSheetCells (wildlifeSheet: Sheet) : Set<Wildlife> {
@@ -125,17 +139,17 @@ export default class Examiner {
         return true
       })
 
-    const illustFields = ['illustUrls']
-    const identifyFields = illustFields.concat(['photoUrls'])
     const questionSeeds = wildlifes
       .map((wildlife: Wildlife, i: number, wildlifes: Array<Wildlife>) => {
-        // 問題の種一覧へ変化させる
+        // 問題のネタ一覧へ変化させる
         return Object.entries(wildlife)
           .filter(([field, value]) => {
-            if (!value
-              || (tendency.onlyIllust && !illustFields.includes(field))
-              || (!tendency.coverIdentify && identifyFields.includes(field))
-              || (!tendency.coverALaCarte && !identifyFields.includes(field))
+            if (!value                                                        // 答えがない
+              || (Array.isArray(value) && value.length === 0)                 // 同上
+              || ignoreFields.includes(field)                                 // 問題を生成できないフィールド
+              || (tendency.onlyIllust && !illustFields.includes(field))       // イラストのみの出題
+              || (!tendency.coverIdentify && identifyFields.includes(field))  // 判別のみの出題
+              || (!tendency.coverALaCarte && !identifyFields.includes(field)) // 判別以外の出題
             ) {
               return false
             }
@@ -151,7 +165,12 @@ export default class Examiner {
           case 'illustUrls': // イラストURL
           case 'photoUrls': // 画像URL
             return value.map(url => {
-              const [choices, answer] = this.getChoicesAndAnswer(wildlifes, 'name', wildlife)
+              const [choices, answer] = this.getChoicesAndAnswer(
+                wildlifes
+                  .filter(w => wildlife.isBird ? w.isBird : w.isBeast), // 鳥なら鳥、獣なら獣を選択肢に
+                'name',
+                wildlife
+              )
               return new Question({
                 choices, answer, image: url, sentence: 'この動物の名前は？',
               })
@@ -181,12 +200,20 @@ export default class Examiner {
                 wildlife),
             ]
           case 'overallLength': // 全長
-            return []
+            return [
+              this.toQuestion(
+                `${wildlife.name}の全長は？(cm)`,
+                wildlifes.filter(w => Math.abs(w.overallLength, wildlife.overallLength) > 15),
+                'overallLength',
+                wildlife),
+            ]
           case 'migrate': // 渡りの習性
             return [
               this.toQuestion(
                 `これらのうち${value}なのは？`,
-                wildlifes.filter(w => w.migrate !== wildlife.migrate),
+                wildlifes
+                  .filter(w => w.isBird)
+                  .filter(w => w.migrate !== wildlife.migrate),
                 'name',
                 wildlife),
             ]
@@ -194,7 +221,9 @@ export default class Examiner {
             return [
               this.toQuestion(
                 `これらのうち${value}なのは？`,
-                wildlifes.filter(w => w.seaOrLand !== wildlife.seaOrLand),
+                wildlifes
+                  .filter(w => w.isBird)
+                  .filter(w => w.seaOrLand && w.seaOrLand !== wildlife.seaOrLand),
                 'name',
                 wildlife),
             ]
@@ -247,20 +276,43 @@ export default class Examiner {
                 wildlife),
             ]
           case 'isHibernate': // 冬眠?
-            return []
+            return [
+              this.toQuestion(
+                `次のうち冬眠するのはどれ？`,
+                wildlifes.filter(w => w.isHibernate !== wildlife.isHibernate),
+                'name',
+                wildlife),
+            ]
           case 'footprint': // 足跡URL
-            return []
+            return [
+              this.toQuestion(
+                `この足あとの動物はどれ？`,
+                wildlifes.filter(w => w.footprint !== wildlife.footprint),
+                'name',
+                wildlife),
+            ]
           case 'prohibites': // 禁止猟法
-            return []
+            return [
+              this.toQuestion(
+                `${wildlife.name}に対する禁止猟法はどれ？`,
+                wildlifes.filter(w => w.prohibites !== wildlife.prohibites),
+                'prohibites',
+                wildlife),
+            ]
           case 'eclipse': // エクリプス?
-            return []
-          case 'id':
-          case 'name':
-          case 'isBeast':
-          case 'isBird':
-          case 'similarIds':
-            return []
+            return [
+              this.toQuestion(
+                `次の打ちエクリプスが起きるのはどれ？`,
+                wildlifes
+                  .filter(w => w.isBird)
+                  .filter(w => w.eclipse !== wildlife.eclipse),
+                'name',
+                wildlife),
+            ]
           default:
+            if (ignoreFields.includes(field)) {
+              return []
+            }
             throw new Error(`Unknown field: ${field}`)
         }
       })
