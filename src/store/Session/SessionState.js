@@ -1,6 +1,7 @@
 // @flow
 
 import {
+  RESET_ALL,
   RESTORE_SESSION_FROM_QUERY,
   NEXT_QUESTION,
   ANSWER,
@@ -13,7 +14,7 @@ export {
 }
 
 export default class SessionState {
-  constructor({ questions, part = 0, finished = false, needFeedback = false }: {
+  constructor({ questions = [], part = 0, finished = false, needFeedback = false }: {
     questions: Array<Question>,
     part: number,
     finished: boolean,
@@ -34,6 +35,8 @@ export default class SessionState {
 
   reduce(payload) {
     switch (payload.type) {
+      case RESET_ALL:
+        return new SessionState()
       case RESTORE_SESSION_FROM_QUERY:
         return this.merge({
           questions: payload.questions,

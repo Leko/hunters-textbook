@@ -9,6 +9,7 @@ import { FormLabel, FormControlLabel } from 'material-ui/Form'
 import Switch from 'material-ui/Switch'
 import { COUNT_STEPS } from '../store/Tendency/TendencyState'
 import { ConfigureTendencyUseCaseFactory } from '../usecase/ConfigureTendency'
+import ResetUseCase from '../usecase/Reset'
 
 export default class OnBoarding extends PureComponent {
   handleChangeCount = (count) => () => {
@@ -41,6 +42,11 @@ export default class OnBoarding extends PureComponent {
       pathname: `/${this.props.match.params.year}/session`,
       search: `?${searchParams.toString()}`,
     })
+  }
+
+  componentWillMount () {
+    const context = this.props.appContext
+    context.useCase(new ResetUseCase()).execute()
   }
 
   render () {

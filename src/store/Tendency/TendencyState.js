@@ -1,7 +1,7 @@
 // @flow
 
 import type { QuestionTendency } from '../../domain'
-import { CONFIGURE_TENDENCY } from '../../const/actions'
+import { RESET_ALL, CONFIGURE_TENDENCY } from '../../const/actions'
 
 const COUNT_STEPS = [10, 20, 30, 50]
 
@@ -22,8 +22,10 @@ export default class TendencyState {
 
   reduce(payload) {
     switch (payload.type) {
+      case RESET_ALL:
+        return this.merge({})
       case CONFIGURE_TENDENCY:
-        return new TendencyState({
+        return this.merge({
           tendency: this.tendency.merge(payload.changes)
         })
       default:
