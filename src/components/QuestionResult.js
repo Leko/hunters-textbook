@@ -14,7 +14,7 @@ export default class QuestionResult extends PureComponent {
 
     return (
       <List className='Session__score__question'>
-        <ListItem button>
+        <ListItem>
           <ListItemIcon>
             <IconComponent
               className={`${question.correct ? 'Session__feedback__icon--correct' : 'Session__feedback__icon--wrong'}`}
