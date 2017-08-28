@@ -20,6 +20,13 @@ if (__DEV__) {
   new AlminLogger().startLogging(appContext)
 }
 
+window.addEventListener("unhandledrejection", function(e, promise) {
+  ReactGA.exception({ description: e.message, fatal: true })
+}, false)
+window.addEventListener("error", function(e) {
+  ReactGA.exception({ description: e.message, fatal: true })
+}, false)
+
 ReactGA.initialize('UA-105406156-1', { debug: __DEV__ })
 
 ReactDOM.render(<App appContext={appContext} />, document.getElementById('root'))

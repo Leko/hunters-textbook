@@ -34,6 +34,10 @@ class App extends PureComponent<void, void, State> {
     })
   }
 
+  componentDidCatch (error, info) {
+    console.log(error, info)
+  }
+
   componentWillMount () {
     const context = this.props.appContext
     const handleChange = () => {
