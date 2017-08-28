@@ -84,8 +84,7 @@ export default class Examiner {
         if (wildlife[choiceField] === null) {
           return false
         }
-        // FIXME: idにする
-        if (wildlife.name === answer.name) {
+        if (wildlife.id === answer.id) {
           return false
         }
         // 答えと同じ値を持つものは除外する
