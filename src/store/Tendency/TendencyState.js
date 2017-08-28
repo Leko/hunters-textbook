@@ -15,9 +15,9 @@ export default class TendencyState {
   }
 
   merge(tendency: QuestionTendency) {
-    return new TendencyState(Object.assign(this, {
+    return new TendencyState({
       tendency: this.tendency.merge(tendency),
-    }))
+    })
   }
 
   reduce(payload) {
@@ -26,7 +26,7 @@ export default class TendencyState {
         return this.merge({})
       case CONFIGURE_TENDENCY:
         const tendency = this.tendency.merge(payload.changes)
-        return this.merge({ tendency })
+        return this.merge(tendency.toJSON())
       default:
         return this
     }
