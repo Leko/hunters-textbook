@@ -1,6 +1,7 @@
 // @flow
 
 import type { Question } from '../../domain'
+import ReactGA from 'react-ga'
 import {
   RESET_ALL,
   RESTORE_SESSION_FROM_QUERY,
@@ -48,9 +49,17 @@ export default class SessionState {
           feedbackQuestion: null,
         })
       case NEXT_QUESTION:
+        const finished = this.part === this.questions.length - 1
+        if (finished) {
+          ReactGA.event({
+            category: 'Session',
+            action: 'Finished',
+            label: this.questions.length,
+          })
+        }
         return this.merge({
           part: Math.min(this.part + 1, this.questions.length - 1),
-          finished: this.part === this.questions.length - 1,
+          finished: finished,
         })
       case ANSWER:
         const { question, answerIndex } = payload

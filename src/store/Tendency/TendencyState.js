@@ -25,9 +25,8 @@ export default class TendencyState {
       case RESET_ALL:
         return this.merge({})
       case CONFIGURE_TENDENCY:
-        return this.merge({
-          tendency: this.tendency.merge(payload.changes)
-        })
+        const tendency = this.tendency.merge(payload.changes)
+        return this.merge({ tendency })
       default:
         return this
     }

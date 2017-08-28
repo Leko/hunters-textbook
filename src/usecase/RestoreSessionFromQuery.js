@@ -32,6 +32,9 @@ export default class RestoreSessionFromQueryUseCase extends UseCase {
     const start = new Date()
     const type = RESTORE_SESSION_FROM_QUERY
     const tendency = QuestionTendencyFactory.fromQueryString(queryString)
+
+    ReactGA.set(tendency.toJSON())
+
     const spreadSheet = await this.spreadSheetRepository.getByYear(year)
     const questions = await Examiner.createQuestions(spreadSheet, tendency)
     const spent = new Date() - start
