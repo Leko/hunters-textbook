@@ -18,7 +18,7 @@ export default class AnswerUseCase extends UseCase {
     ReactGA.event({
       category: 'Question',
       action: question.isAccepted(answerIndex) ? 'Correct' : 'Wrong',
-      label: question.sentence,
+      label: `${question.sentence}__${question.getAnswer()}`,
     })
 
     this.dispatch({ question, answerIndex, type })
