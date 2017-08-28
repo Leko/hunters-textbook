@@ -1,6 +1,6 @@
 // @flow
 
-import React, { PureComponent } from 'react'
+import { PureComponent } from 'react'
 import ReactGA from 'react-ga'
 
 export default class Analytics extends PureComponent {

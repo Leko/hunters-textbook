@@ -1,6 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react'
+import ReactGA from 'react-ga'
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -23,9 +24,24 @@ export default class QuestionFeedbackModal extends PureComponent {
     this.setState({ moreFeedback: true })
   }
 
-  handleHideMoreFeedback = () => {
+  handleHideFeedbackWithReason = reason => e => {
+    this.handleHideFeedback(e, reason)
+  }
+
+  handleHideFeedback = (e, reason = 'Unknown') => {
     this.setState({ moreFeedback: false })
     this.props.onRequestClose()
+    ReactGA.event({
+      category: 'Feedback',
+      action: 'Close by',
+      label: reason
+    })
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (!prevState.moreFeedback && this.state.moreFeedback) {
+      ReactGA.modalview('/more-feedback')
+    }
   }
 
   render () {
@@ -45,7 +61,7 @@ export default class QuestionFeedbackModal extends PureComponent {
           transition={<Slide direction='up' />}
           open={this.props.open}
           autoHideDuration={this.state.moreFeedback ? null : 3000}
-          onRequestClose={this.handleHideMoreFeedback}
+          onRequestClose={this.handleHideFeedback}
           onExited={this.props.onHide}
           SnackbarContentProps={{
             'aria-describedby': 'message-id',
@@ -75,7 +91,7 @@ export default class QuestionFeedbackModal extends PureComponent {
               key='close'
               aria-label='Close'
               color='inherit'
-              onClick={this.props.onRequestClose}
+              onClick={this.handleHideFeedbackWithReason('click_close')}
             >
               <IconClose />
             </IconButton>,
@@ -86,8 +102,6 @@ export default class QuestionFeedbackModal extends PureComponent {
           ignoreEscapeKeyUp
           maxWidth='xs'
           open={this.state.moreFeedback}
-          onBackdropClick={this.handleHideMoreFeedback}
-          onRequestClose={this.handleHideMoreFeedback}
           classes={{
             paper: 'Session__modal',
           }}
@@ -109,7 +123,7 @@ export default class QuestionFeedbackModal extends PureComponent {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.onBackdropClick} color='primary'>
+            <Button color='primary'>
               次の問題へ
             </Button>
           </DialogActions>

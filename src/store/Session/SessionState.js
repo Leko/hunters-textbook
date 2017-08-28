@@ -54,7 +54,7 @@ export default class SessionState {
           ReactGA.event({
             category: 'Session',
             action: 'Finished',
-            label: this.questions.length,
+            value: this.questions.length,
           })
         }
         return this.merge({
