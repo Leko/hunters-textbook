@@ -4,18 +4,16 @@ import React, { PureComponent } from 'react'
 import { LinearProgress } from 'material-ui/Progress'
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
-import Avatar from 'material-ui/Avatar'
-import Divider from 'material-ui/Divider'
 import Card, { CardContent } from 'material-ui/Card'
-import List, { ListItem, ListItemIcon, ListItemAvatar, ListItemText } from 'material-ui/List'
-import IconClose from 'material-ui-icons/Close'
-import IconCheck from 'material-ui-icons/Check'
 import { RestoreSessionFromQueryUseCaseFactory } from '../usecase/RestoreSessionFromQuery'
 import { AnswerUseCaseFactory } from '../usecase/Answer'
 import { NextQuestionUseCaseFactory } from '../usecase/NextQuestion'
 import { ExitFeedbackUseCaseFactory } from '../usecase/ExitFeedback'
 import Question from './Question'
-import QuestionFeedbackModal from '../components/QuestionFeedbackModal'
+import {
+  QuestionFeedbackModal,
+  QuestionResultList,
+} from '../components'
 import '../styles/Session.css'
 
 type Props = {
@@ -90,32 +88,7 @@ export default class Session extends PureComponent<void, Props> {
                 {questions.length}問中{questions.filter(q => q.correct).length}問正解
               </Typography>
             </CardContent>
-              {questions.map((q, i) => {
-                const IconComponent = q.correct ? IconCheck : IconClose
-                return (
-                  <List className='Session__score__question'>
-                    <ListItem key={i} button>
-                      <ListItemIcon>
-                        <IconComponent
-                          className={`${q.correct ? 'Session__modal__icon--correct' : 'Session__modal__icon--wrong'}`}
-                        />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={q.sentence}
-                        secondary={`正解：${q.getAnswer()}`}
-                      />
-                      {q.image
-                        ? (
-                          <ListItemAvatar>
-                            <Avatar src={q.image[1]} classes={{ img: 'Session__score__avatar' }} />
-                          </ListItemAvatar>
-                        )
-                        : null}
-                    </ListItem>
-                    <Divider />
-                  </List>
-                )
-              })}
+            <QuestionResultList questions={questions} />
           </Card>
         </Grid>
       </Grid>
