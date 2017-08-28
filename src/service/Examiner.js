@@ -94,6 +94,7 @@ export default class Examiner {
         return true
       })
       .map(wildlife => wildlife[choiceField])
+      .filter(choice => !!choice)
 
     const choices = sampleSize(uniq(answerTargets), 2)
       .concat([answer[choiceField]])
