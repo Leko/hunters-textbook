@@ -1,6 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react'
+import ReactGA from 'react-ga'
 import Drawer from 'material-ui/Drawer'
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
@@ -10,6 +11,12 @@ import FeedbackIcon from 'material-ui-icons/Feedback'
 import CopyrightIcon from 'material-ui-icons/Copyright'
 
 export default class SideBar extends PureComponent {
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.open && !this.props.open) {
+      ReactGA.modalview('/sidebar')
+    }
+  }
+
   render () {
     return (
       <Drawer
