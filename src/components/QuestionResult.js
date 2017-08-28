@@ -17,7 +17,7 @@ export default class QuestionResult extends PureComponent {
         <ListItem button>
           <ListItemIcon>
             <IconComponent
-              className={`${question.correct ? 'Session__modal__icon--correct' : 'Session__modal__icon--wrong'}`}
+              className={`${question.correct ? 'Session__feedback__icon--correct' : 'Session__feedback__icon--wrong'}`}
             />
           </ListItemIcon>
           <ListItemText
