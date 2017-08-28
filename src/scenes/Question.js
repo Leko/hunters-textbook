@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import ReactGA from 'react-ga'
+import { OutboundLink } from 'react-ga'
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
@@ -14,14 +14,6 @@ const prefixes = 'アイウ'.split('')
 export default class Question extends PureComponent {
   handleClickAnswer = (index) => () => {
     this.props.onAnswer(index)
-  }
-
-  handleClickCopyright = (url) => () => {
-    ReactGA.outboundLink({
-      label: url,
-    }, () => {
-      window.open(url, '_blank')
-    })
   }
 
   render () {
@@ -38,7 +30,10 @@ export default class Question extends PureComponent {
                     <Button
                       dense
                       color='inherit'
-                      onClick={this.handleClickCopyright(image[0])}
+                      component={OutboundLink}
+                      eventLabel={image[0]}
+                      to={image[0]}
+                      target='_blank'
                     >
                       <Typography type='caption'>
                         Photo {image[2] || new URL(image[0]).host}
