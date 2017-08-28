@@ -1,6 +1,7 @@
 // @flow
 
 import type { QuestionRepository } from '../infra/QuestionRepository'
+import ReactGA from 'react-ga'
 import { UseCase } from 'almin'
 import { QuestionTendencyFactory } from '../domain'
 import Examiner from '../service/Examiner'
@@ -28,10 +29,19 @@ export default class RestoreSessionFromQueryUseCase extends UseCase {
   }
 
   async execute (year, queryString) {
+    const start = new Date()
     const type = RESTORE_SESSION_FROM_QUERY
     const tendency = QuestionTendencyFactory.fromQueryString(queryString)
     const spreadSheet = await this.spreadSheetRepository.getByYear(year)
     const questions = await Examiner.createQuestions(spreadSheet, tendency)
+    const spent = new Date() - start
+
+    ReactGA.timing({
+      category: RESTORE_SESSION_FROM_QUERY,
+      variable: 'load',
+      value: spent,
+    })
+
     this.dispatch({ type, questions })
   }
 }
