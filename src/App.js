@@ -2,6 +2,7 @@
 
 import type { Context } from 'almin'
 import React, { PureComponent } from 'react'
+import Spinner from 'react-spinkit'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import {
   Analytics,
@@ -74,6 +75,13 @@ class App extends PureComponent<void, void, State> {
     return (
       <Router>
         <div className='root'>
+          {this.state.uiState.busy
+            ? (
+              <div className='loading loading__overlay loading--loading'>
+                <Spinner name='line-scale-pulse-out-rapid' />
+              </div>
+            )
+            : null}
           <Route path='/' component={Analytics} />
           <AppHeader
             onRequestSideBar={this.handleOpenSideBar}

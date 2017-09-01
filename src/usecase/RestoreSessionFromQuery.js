@@ -7,7 +7,7 @@ import { QuestionTendencyFactory } from '../domain'
 import Examiner from '../service/Examiner'
 import questionRepository from '../infra/QuestionRepository'
 import spreadSheetRepository from '../infra/SpreadSheetRepository'
-import { RESTORE_SESSION_FROM_QUERY } from '../const/actions'
+import { LOADING, LOADED, RESTORE_SESSION_FROM_QUERY } from '../const/actions'
 
 export class RestoreSessionFromQueryUseCaseFactory {
   static create () : RestoreSessionFromQueryUseCase {
@@ -29,22 +29,29 @@ export default class RestoreSessionFromQueryUseCase extends UseCase {
   }
 
   async execute (year, queryString) {
-    const start = new Date()
-    const type = RESTORE_SESSION_FROM_QUERY
-    const tendency = QuestionTendencyFactory.fromQueryString(queryString)
+    try {
+      this.dispatch({ type: LOADING })
+      const start = new Date()
+      const type = RESTORE_SESSION_FROM_QUERY
+      const tendency = QuestionTendencyFactory.fromQueryString(queryString)
 
-    ReactGA.set(tendency.toJSON())
+      ReactGA.set(tendency.toJSON())
 
-    const spreadSheet = await this.spreadSheetRepository.getByYear(year)
-    const questions = await Examiner.createQuestions(spreadSheet, tendency)
-    const spent = new Date() - start
+      const spreadSheet = await this.spreadSheetRepository.getByYear(year)
+      const questions = await Examiner.createQuestions(spreadSheet, tendency)
+      const spent = new Date() - start
 
-    ReactGA.timing({
-      category: RESTORE_SESSION_FROM_QUERY,
-      variable: 'load',
-      value: spent,
-    })
+      ReactGA.timing({
+        category: RESTORE_SESSION_FROM_QUERY,
+        variable: 'load',
+        value: spent,
+      })
 
-    this.dispatch({ type, questions })
+      this.dispatch({ type, questions })
+    } catch (e) {
+      throw e
+    } finally {
+      this.dispatch({ type: LOADED })
+    }
   }
 }
