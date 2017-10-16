@@ -3,7 +3,7 @@
 import type { QuestionTendency } from '../../domain'
 import { RESET_ALL, CONFIGURE_TENDENCY } from '../../const/actions'
 
-const COUNT_STEPS = [10, 20, 30, 50]
+const COUNT_STEPS = [10, 30, 50]
 
 export {
   COUNT_STEPS,

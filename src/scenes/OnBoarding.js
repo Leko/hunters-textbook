@@ -76,19 +76,9 @@ export default class OnBoarding extends PureComponent {
 
           <FormLabel component='legend'>出題オプション</FormLabel>
           <FormControlLabel
-            label='獣類のみ出題する'
+            label='イラストのみ出題する'
             onChange={this.handleChangeField('onlyIllust')}
             control={<Switch checked={tendency.onlyIllust} />}
-          /><br/>
-          <FormControlLabel
-            label='鳥類のみ出題する'
-            onChange={this.handleChangeField('onlyBeasts')}
-            control={<Switch checked={tendency.onlyBeasts} />}
-          /><br/>
-          <FormControlLabel
-            label='イラストのみ出題する'
-            onChange={this.handleChangeField('onlyBirds')}
-            control={<Switch checked={tendency.onlyBirds} />}
           /><br/>
 
           <FormLabel component='legend'>出題数</FormLabel>
