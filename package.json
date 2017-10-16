@@ -23,7 +23,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "mocha",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "assets": "npm run assets:images",
+    "assets:images": "npm run assets:images:illustration && npm run assets:images:picture",
+    "assets:images:illustration": "mkdir -p public/assets/illustration && mogrify -path public/assets/illustration -resize '1125x' -resize 'x1125>' assets/illustration/*.jpg",
+    "assets:images:picture": "mkdir -p public/assets/picture && mogrify -path public/assets/picture -resize '1125x' -resize 'x1125>' assets/picture/*.jpg"
   },
   "devDependencies": {
     "babel-polyfill": "^6.26.0",
