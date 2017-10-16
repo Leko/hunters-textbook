@@ -13,6 +13,7 @@ import {
   OnBoarding,
   Session,
   Question,
+  TermsOfUse,
 } from './scenes'
 import './App.css'
 
@@ -93,6 +94,11 @@ class App extends PureComponent<void, void, State> {
 
           <div className='container'>
             <Switch>
+              <Route
+                exact
+                path='/terms-of-use'
+                render={this.wrap(TermsOfUse)}
+              />
               <Route
                 exact
                 path='/:year'
