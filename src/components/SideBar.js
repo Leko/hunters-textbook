@@ -7,11 +7,8 @@ import Avatar from 'material-ui/Avatar'
 import { Link } from 'react-router-dom'
 import List, { ListItem, ListItemIcon, ListItemAvatar, ListItemText } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
-import HistoryIcon from 'material-ui-icons/History'
-import FormatListNumberedIcon from 'material-ui-icons/FormatListNumbered'
 import FeedbackIcon from 'material-ui-icons/Feedback'
 import InfoOutlineIcon from 'material-ui-icons/InfoOutline'
-import CopyrightIcon from 'material-ui-icons/Copyright'
 
 export default class SideBar extends PureComponent {
   componentWillReceiveProps (nextProps) {

@@ -2,7 +2,7 @@
 
 import React, { PureComponent } from 'react'
 import Typography from 'material-ui/Typography'
-import Card, { CardActions, CardContent } from 'material-ui/Card'
+import Card, { CardContent } from 'material-ui/Card'
 
 export default class TermsOfUse extends PureComponent {
   render () {

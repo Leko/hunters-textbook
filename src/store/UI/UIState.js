@@ -1,6 +1,5 @@
 // @flow
 
-import type { QuestionTendency } from '../../domain'
 import { LOADING, LOADED } from '../../const/actions'
 
 export default class UIState {
