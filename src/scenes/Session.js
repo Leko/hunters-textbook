@@ -1,9 +1,11 @@
 // @flow
 
 import React, { PureComponent } from 'react'
+import { OutboundLink } from 'react-ga'
 import { LinearProgress } from 'material-ui/Progress'
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
+import Button from 'material-ui/Button'
 import Card, { CardContent } from 'material-ui/Card'
 import { RestoreSessionFromQueryUseCaseFactory } from '../usecase/RestoreSessionFromQuery'
 import { AnswerUseCaseFactory } from '../usecase/Answer'
@@ -72,13 +74,32 @@ export default class Session extends PureComponent<void, Props> {
 
   renderScore () {
     const { questions } = this.props.sessionState
+    const params = new URLSearchParams()
+    params.append('url', window.location.origin)
+    params.append('related', 'L_e_k_o')
+    params.append('hashtags', 'ポケット狩猟読本')
+    params.append('text', `${questions.length}問中${questions.filter(q => q.correct).length}問正解しました`)
+
     return (
       <Grid container justify='center'>
         <Grid item xs={12} sm={6}>
           <Card style={{ width: '100%' }}>
             <CardContent>
               <Typography>
-                {questions.length}問中{questions.filter(q => q.correct).length}問正解
+                {questions.length}問中{questions.filter(q => q.correct).length}問正解でした！
+              </Typography>
+              <Typography>
+                <Button
+                  color='inherit'
+                  component={OutboundLink}
+                  eventLabel={'share-twitter'}
+                  to={`https://twitter.com/share?${params.toString()}`}
+                  target='_blank'
+                >
+                  <Typography type='caption'>
+                    Twitterでシェアする
+                  </Typography>
+                </Button>
               </Typography>
             </CardContent>
             <QuestionResultList questions={questions} />
