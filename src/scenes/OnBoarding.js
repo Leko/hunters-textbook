@@ -69,16 +69,14 @@ export default class OnBoarding extends PureComponent {
             control={<Switch checked={tendency.coverIdentify} />}
           /><br/>
           <FormControlLabel
-            label='鳥獣のアラカルト（生息環境、食性など）'
-            onChange={this.handleChangeField('coverALaCarte')}
-            control={<Switch checked={tendency.coverALaCarte} />}
-          /><br/>
-
-          <FormLabel component='legend'>出題オプション</FormLabel>
-          <FormControlLabel
             label='イラストのみ出題する'
             onChange={this.handleChangeField('onlyIllust')}
             control={<Switch checked={tendency.onlyIllust} />}
+          /><br/>
+          <FormControlLabel
+            label='鳥獣のアラカルト（生息環境、食性など）'
+            onChange={this.handleChangeField('coverALaCarte')}
+            control={<Switch checked={tendency.coverALaCarte} />}
           /><br/>
 
           <FormLabel component='legend'>出題数</FormLabel>
