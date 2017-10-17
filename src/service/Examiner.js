@@ -302,7 +302,7 @@ export default class Examiner {
           case 'eclipse': // エクリプス?
             return [
               this.toQuestion(
-                `次の打ちエクリプスが起きるのはどれ？`,
+                `次のうちエクリプスが起きるのはどれ？`,
                 wildlifes
                   .filter(w => w.isBird)
                   .filter(w => w.eclipse !== wildlife.eclipse),
