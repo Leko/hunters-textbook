@@ -1,4 +1,4 @@
 # hunters-textbook
-[![CircleCI](https://circleci.com/gh/Leko/hunters-textbook/tree/master.svg?style=svg)](https://circleci.com/gh/Leko/hunters-textbook/tree/master)
+[![CircleCI](https://circleci.com/gh/Leko/hunters-textbook.svg?style=svg)](https://circleci.com/gh/Leko/hunters-textbook)
 
-[WIP] A textbook for learning hunting(狩猟) on the web
+A textbook for learning hunting(狩猟) on the web
