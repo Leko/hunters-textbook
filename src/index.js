@@ -8,6 +8,8 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 
+window.Raven.config('https://418d59a7690746a191445cb6962d2e63@sentry.io/231165').install()
+
 const __DEV__ = process.env.NODE_ENV !== 'production'
 
 const appContext = new Context({
