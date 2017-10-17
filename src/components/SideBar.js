@@ -42,7 +42,7 @@ export default class SideBar extends PureComponent {
           <ListItem
             button
             component={OutboundLink}
-            to="https://hoge"
+            to="https://goo.gl/forms/KLeC3ZU9A23XXSVO2"
             eventLabel="feedback"
             target="_blank"
           >
