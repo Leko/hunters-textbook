@@ -4,21 +4,14 @@ import React, { PureComponent } from 'react'
 import Typography from 'material-ui/Typography'
 import Card, { CardContent } from 'material-ui/Card'
 
-const paragraphs = [
-`この利用規約（以下，「本規約」といいます。）は，ポケット狩猟読本開発者（以下，「当方」といいます。）が提供するアプリケーション（以下，「本サービス」といいます。）の利用条件を定めるものです。
-利用者の皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。`,
-`
-`,
-]
-
 export default class TermsOfUse extends PureComponent {
   render () {
     return (
       <Card>
         <CardContent>
-          <Typography gutterBottom type='headline'>Toami 利用規約</Typography>
+          <Typography gutterBottom type='headline'>ポケット狩猟読本 利用規約</Typography>
 
-          <Typography gutterBottom>この利用規約（以下，「本規約」といいます。）は，Toami開発者（以下，「当方」といいます。）が提供するアプリケーション（以下，「本サービス」といいます。）の利用条件を定めるものです。利用者の皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。  </Typography>
+          <Typography gutterBottom>この利用規約（以下，「本規約」といいます。）は，ポケット狩猟読本開発者（以下，「当方」といいます。）が提供するアプリケーション（以下，「本サービス」といいます。）の利用条件を定めるものです。利用者の皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。  </Typography>
 
           <Typography gutterBottom type="subheading">（適用）</Typography>
 
