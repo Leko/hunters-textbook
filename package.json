@@ -7,7 +7,6 @@
     "almin-logger": "^6.0.0",
     "history": "^4.7.2",
     "immutable": "^3.8.1",
-    "isomorphic-fetch": "^2.2.1",
     "localstorage-ponyfill": "^1.0.1",
     "lodash": "^4.17.4",
     "material-ui": "^1.0.0-beta.5",
@@ -30,11 +29,14 @@
     "assets:images:picture": "mkdir -p public/assets/picture && mogrify -quality 85 -path public/assets/picture -resize '1125x' -resize 'x1125>' assets/picture/*.jpg"
   },
   "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
+    "isomorphic-fetch": "^2.2.1",
     "license-checker": "^14.0.0",
-    "mocha": "^3.5.0"
+    "mocha": "^3.5.0",
+    "node-fetch": "^1.7.3"
   }
 }
