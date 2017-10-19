@@ -59,7 +59,7 @@ export default class OnBoarding extends PureComponent {
             平成29年度 問題集
           </Typography>
           <Typography>
-            狩猟免許試験の勉強にもよし、免許を取った後狩猟に備えて知識を付けるもよし。規律を守って正しい狩猟を。
+            狩猟免許試験の勉強にもよし、免許を取った後狩猟に備えて知識を付けるもよし。鳥獣を良く知り楽しい狩猟を！
           </Typography>
 
           <FormLabel component='legend'>出題する範囲</FormLabel>
