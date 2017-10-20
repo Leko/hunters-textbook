@@ -7,6 +7,7 @@ import AppStoreGroup from './store/AppStoreGroup'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
+import 'babel-polyfill'
 
 window.Raven.config('https://418d59a7690746a191445cb6962d2e63@sentry.io/231165').install()
 
