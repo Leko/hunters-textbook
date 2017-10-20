@@ -1,5 +1,6 @@
 // @flow
 
+import URLSearchParams from 'url-search-params'
 import React, { PureComponent } from 'react'
 import { OutboundLink } from 'react-ga'
 import { LinearProgress } from 'material-ui/Progress'

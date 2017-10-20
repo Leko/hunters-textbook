@@ -1,6 +1,7 @@
 // @flow
 
 import QuestionTendency from './QuestionTendency'
+import URLSearchParams from 'url-search-params'
 
 export default class QuestionTendencyFactory {
   static fromQueryString (queryString) : QuestionTendency {

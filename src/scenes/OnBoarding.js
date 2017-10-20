@@ -1,5 +1,6 @@
 // @flow
 
+import URLSearchParams from 'url-search-params'
 import React, { PureComponent } from 'react'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
