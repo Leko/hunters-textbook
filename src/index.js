@@ -9,12 +9,14 @@ import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 import 'babel-polyfill'
 
+const __DEV__ = process.env.NODE_ENV !== 'production'
+
 window.Raven.config('https://418d59a7690746a191445cb6962d2e63@sentry.io/231165', {
-  release: process.env.RELEASE_ID,
+  environment: process.env.NODE_ENV,
+  release: process.env.REACT_APP_RELEASE_ID,
+  debug: __DEV__,
   captureUnhandledRejections: true,
 }).install()
-
-const __DEV__ = process.env.NODE_ENV !== 'production'
 
 const appContext = new Context({
   dispatcher: new Dispatcher(),
