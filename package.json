@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run assets && RELEASE_ID=$(git rev-parse --verify HEAD) react-scripts build",
+    "build": "npm run assets && REACT_APP_RELEASE_ID=$(git rev-parse --short --verify HEAD) react-scripts build",
     "test": "mocha",
     "eject": "react-scripts eject",
     "assets": "npm run assets:images",
