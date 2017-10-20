@@ -9,7 +9,9 @@ import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 import 'babel-polyfill'
 
-window.Raven.config('https://418d59a7690746a191445cb6962d2e63@sentry.io/231165').install()
+window.Raven.config('https://418d59a7690746a191445cb6962d2e63@sentry.io/231165', {
+  captureUnhandledRejections: true,
+}).install()
 
 const __DEV__ = process.env.NODE_ENV !== 'production'
 
